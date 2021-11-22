@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.LinkedList;
-import java.util.function.Consumer;
 
-public class Ship extends PlaceableObject<Ship> {
+public abstract class Ship<T extends Ship<T>> extends PlaceableObject<T> {
 
     LinkedList<Laser> lasers;
     TextureRegion shield;
@@ -14,24 +13,20 @@ public class Ship extends PlaceableObject<Ship> {
     int shieldHp;
     float shotInterval, shotCountDown;
 
-    private Ship() {
+    Ship() {
         lasers = new LinkedList<>();
         shotCountDown = 0;
     }
 
-    public static Ship construct() {
-        return new Ship();
-    }
-
-    public Ship shield(String regionName) {
+    public T shield(String regionName) {
         return chaining(() -> shield = ATLAS.findRegion(regionName));
     }
 
-    public Ship shieldHp(int shieldHp) {
+    public T shieldHp(int shieldHp) {
         return chaining(() -> this.shieldHp = shieldHp);
     }
 
-    public Ship shotInterval(float shotInterval) {
+    public T shotInterval(float shotInterval) {
         return chaining(() -> this.shotInterval = shotInterval);
     }
 
@@ -43,12 +38,7 @@ public class Ship extends PlaceableObject<Ship> {
         return shotCountDown >= shotInterval;
     }
 
-    public Ship doOnfire(Consumer<Ship> behavior) {
-        return chainingIf(canFire(), () -> {
-            shotCountDown = 0;
-            behavior.accept(this);
-        });
-    }
+    public abstract void fire();
 
     public void draw(Batch batch) {
         batch.draw(body, x, y, width, height);
