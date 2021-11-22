@@ -9,7 +9,7 @@ public abstract class PlaceableObject<T extends PlaceableObject<T>> implements C
     TextureRegion body;
 
     float x, y, width, height;
-    float speed;
+    float speed, angle;
 
     public PlaceableObject() { }
 
@@ -19,6 +19,10 @@ public abstract class PlaceableObject<T extends PlaceableObject<T>> implements C
 
     public T speed(float speed) {
         return chaining(() -> this.speed = speed);
+    }
+
+    public T angle(float angle) {
+        return chaining(() -> this.angle = angle);
     }
 
     public T x(float x) {

@@ -51,7 +51,8 @@ public class GameScreen implements Screen {
 
         player = Ships.newPlayable()
                      .shieldHp(4)
-                     .speed(2)
+                .shotInterval(3)
+                     .speed(5)
                      .x(WORLD_WIDTH / 4f)
                      .y(WORLD_HEIGHT / 2f)
                      .height(10)
@@ -59,7 +60,8 @@ public class GameScreen implements Screen {
 
         enemy =  Ships.newEnemy()
                      .shieldHp(2)
-                     .speed(2)
+                     .speed(5)
+                .shotInterval(3)
                      .x(WORLD_WIDTH / 4f * 3f)
                      .y(WORLD_HEIGHT / 2f)
                      .height(10)
@@ -77,6 +79,10 @@ public class GameScreen implements Screen {
         renderBackground(delta);
         player.draw(spriteBatch);
         enemy.draw(spriteBatch);
+        //lasers
+        player.update(delta, WORLD_WIDTH);
+        enemy.update(delta, WORLD_WIDTH);
+
         spriteBatch.end();
     }
 

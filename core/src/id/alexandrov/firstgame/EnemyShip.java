@@ -8,7 +8,7 @@ public class EnemyShip extends Ship<EnemyShip> {
 
     @Override
     public void fire() {
-        lasers.add(Laser.newRed().speed(2).y(y ).x(x));
-        lasers.add(Laser.newRed().speed(2).y(y + height).x(x));
+        lasers.add(Laser.newRed().y(y ).x(x));
+        lasers.add(Laser.newRed().y(y + height).x(x));
     }
 }
